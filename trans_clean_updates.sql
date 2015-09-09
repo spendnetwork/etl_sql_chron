@@ -30,3 +30,5 @@ WHERE
 entity_pk is null AND
 trans_clean.entity_id=e.entity_id
 ;
+
+REFRESH MATERIALIZED VIEW tc_slim;
