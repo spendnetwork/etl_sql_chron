@@ -9,6 +9,19 @@ AND trans_clean.supplier_id is null
 AND trans_clean.created_at > now()::date - 1
 ;
 
+-- Updates usm3 with new supplier_source_strings added to trans_clean in the last 2 days.
+
+INSERT INTO usm3 (sss, sss_created_at)
+SELECT DISTINCT ON (supplier_source_string) supplier_source_string, CURRENT_DATE
+FROM trans_clean
+WHERE supplier_id is null
+AND supplier_source_string ~* '[A-Z]'
+AND updated_at > (CURRENT_DATE - 2)
+AND NOT EXISTS (SELECT sss FROM usm3 WHERE sss = trans_clean.supplier_source_string)
+ORDER BY supplier_source_string ASC
+RETURNING sss, sss_created_at
+;
+
 -- Capgemini into hmrc
 
 UPDATE trans_clean
