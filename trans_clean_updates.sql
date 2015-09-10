@@ -1,4 +1,7 @@
-﻿-- Updates the supplier_id of any files posted today and the previous day
+﻿-- Start time
+SELECT CURRENT_TIMESTAMP;
+
+-- Updates the supplier_id of any files posted today and the previous day
 
 UPDATE trans_clean
 SET supplier_id = usm3.sid
@@ -45,3 +48,6 @@ trans_clean.entity_id=e.entity_id
 ;
 
 REFRESH MATERIALIZED VIEW tc_slim;
+
+-- End time
+SELECT CURRENT_TIMESTAMP;
