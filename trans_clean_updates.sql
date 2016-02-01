@@ -1,4 +1,4 @@
-﻿-- Regresh tc_slim materialized view.
+﻿-- Refresh tc_slim materialized view.
 
 SELECT 'Refreshing tc_slim.', CURRENT_TIMESTAMP;
 
