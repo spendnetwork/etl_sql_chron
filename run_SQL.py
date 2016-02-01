@@ -7,7 +7,7 @@ from core import database
 import logging
 
 PYTHONPATH = '/var/www/pipeline/venv/bin/python'
-DATABASE = 'local'
+DATABASE = 'heroku'
 DELAY_TIME = 10   # Seconds between starting each query.
 
 
