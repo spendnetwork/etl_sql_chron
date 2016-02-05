@@ -20,6 +20,7 @@ def connect_db(host=DATABASE):
 def run_query(query, conn=None):
     if not conn:
         conn = connect_db()
+        conn.con.autocommit=True
     response = conn.tryexecute(query)
     return response
 
