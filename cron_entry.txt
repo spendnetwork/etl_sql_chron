@@ -1,1 +1,1 @@
-* * * * * /var/www/pipeline/venv/bin/python /home/snbot/cronscripts/etl_sql_cron/run_SQL.py /home/snbot/cronscripts/etl_sql_cron/queries
+0 6 * * * /var/www/pipeline/venv/bin/python /home/snbot/cronscripts/etl_sql_cron/run_SQL.py /home/snbot/cronscripts/etl_sql_cron/queries

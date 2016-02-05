@@ -1,4 +1,5 @@
 -- Updates usm3 with new supplier_source_strings added to trans_clean in the last 2 days.
+-- ~26 mins
 
 SELECT 'Inserting new sss into usm3', CURRENT_TIMESTAMP;
 

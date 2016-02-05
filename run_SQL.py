@@ -8,7 +8,7 @@ import logging
 
 PYTHONPATH = '/var/www/pipeline/venv/bin/python'
 DATABASE = 'heroku'
-DELAY_TIME = 10   # Seconds between starting each query.
+DELAY_TIME = 1800   # Seconds between starting each query.
 
 
 def connect_db(host=DATABASE):
@@ -35,13 +35,15 @@ def runSql(sqlFile):
     logger.info('Running {0}'.format(os.path.basename(sqlFile)))
     sql = readSqlFile(sqlFile)
     logger.debug('SQL:\n{0}'.format(sql))
-    response = run_query(sql)
-    if response[1] == 0:
-        logger.info('Query completed successfully.')
-    sleep(2)
-    if response[0]:
-        logger.debug('Response:\n{0}'.format(pformat(response[0])))
-
+    try:
+        response = run_query(sql)
+        if response[1] == 0:
+            logger.info('Query completed successfully.')
+        sleep(2)
+        if response[0]:
+            logger.debug('Response:\n{0}'.format(pformat(response[0])))
+    except:
+        logger.exception('Error occurred.')
 
 def runSubprocess(sqlFile):
     cmd = ' '.join([PYTHONPATH, os.path.realpath(__file__), sqlFile])
@@ -50,7 +52,7 @@ def runSubprocess(sqlFile):
     return proc
 
 
-def runFiles(sqlFilesDir, host='local'):
+def runFiles(sqlFilesDir, host=DATABASE):
     logging.info('Running sql files in directory {0} on database {1}'.format(sqlFilesDir, host))
 
     files = []
@@ -60,7 +62,7 @@ def runFiles(sqlFilesDir, host='local'):
                 fPath = os.path.join(r, fil)
                 files.append(fPath)
 
-    for sqlFile in files:
+    for sqlFile in sorted(files, reverse=True):
         runSubprocess(sqlFile)
         sleep(DELAY_TIME)
 

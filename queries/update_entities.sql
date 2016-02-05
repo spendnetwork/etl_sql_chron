@@ -1,4 +1,5 @@
 -- Updates the entity index in trans_clean
+-- ~ 12 mins
 
 SELECT 'Updating entity index.', CURRENT_TIMESTAMP;
 
