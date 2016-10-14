@@ -6,6 +6,8 @@ import subprocess
 from core import database
 import logging
 
+from core.script_monitoring import exit_if_already_running
+
 PYTHONPATH = '/var/www/pipeline/venv/bin/python'
 DATABASE = 'heroku'
 DELAY_TIME = 1800   # Seconds between starting each query.
@@ -47,6 +49,7 @@ def runSql(sqlFile):
         logger.exception('Error occurred.')
 
 def runSubprocess(sqlFile):
+    exit_if_already_running(sqlFile)
     cmd = ' '.join([PYTHONPATH, os.path.realpath(__file__), sqlFile])
     print cmd
     proc = subprocess.Popen(cmd, shell=True)
